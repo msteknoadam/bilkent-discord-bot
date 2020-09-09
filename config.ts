@@ -7,6 +7,11 @@ const config: BotConfigType = {
 		"Enter your Discord bot login token here, you can generate one from https://discord.com/developers/applications",
 	discordServerId:
 		"Enter the server ID of the Discord server here, search about how to get Discord server ID on Google to get it if you don't know",
+	roles: {
+		"👍": { roleId: "753380582100172930", roleName: "Role 1" },
+		"😊": { roleId: "753380635757903924", roleName: "Role 2" },
+		"😂": { roleId: "753380680523841606", roleName: "Role 3" },
+	},
 };
 
 const localConfigPath = path.join(__dirname, "config.local.ts");

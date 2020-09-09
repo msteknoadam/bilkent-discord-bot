@@ -17,7 +17,41 @@ bot.on("message", (message) => {
 		const bilkentServer = bot.guilds.cache.find((guild) => guild.id === CONFIG.discordServerId);
 		const serverUser = bilkentServer?.members.cache.find((user) => user.id === message.author.id);
 		serverUser?.setNickname(`${message.content} | ${serverUser.displayName}`);
-		message.channel.send(`Adını bana bildirdiğin için teşekkürler **${message.content}**!`);
+		message.channel.send(
+			`Adını bana bildirdiğin için teşekkürler **${message.content}**! Lütfen bir sonraki gelecek mesajda bölümüne karşılık gelen emojiye tıkla ki sunucuda sana o rolü verebilelim.`
+		);
+		const roleEmbed = new Discord.MessageEmbed()
+			.setColor("#0099ff")
+			.setTitle("Bölümünü Seç")
+			.setAuthor(message.author.username, message.author.displayAvatarURL())
+			.setDescription("Aşağıdaki emojilerden hangisi senin bölümünse ona 1 (bir) kez tıklaman yeterli.\n\n")
+			.setTimestamp()
+			.setFooter(
+				`Bu bot bir açık kaynak projesidir. İstersen https://github.com/msteknoadam/bilkent-discord-bot adresinden destek olabilirsin.`
+			);
+		Object.keys(CONFIG.roles).forEach((roleEmoji) => {
+			roleEmbed.description += `${roleEmoji}: ${CONFIG.roles[roleEmoji].roleName}\n`;
+		});
+		message.channel.send(roleEmbed).then((sentMessage) => {
+			Object.keys(CONFIG.roles).forEach((roleEmoji) => {
+				sentMessage.react(roleEmoji);
+			});
+		});
+	}
+});
+
+bot.on("messageReactionAdd", (reaction, reactionUser) => {
+	if (
+		reactionUser.id !== bot.user?.id &&
+		reaction.message.channel.type === "dm" &&
+		reaction.message.author.id === bot.user!.id
+	) {
+		const reactionEmoji = reaction.emoji.name;
+		if (CONFIG.roles[reactionEmoji]) {
+			const bilkentServer = bot.guilds.cache.find((guild) => guild.id === CONFIG.discordServerId);
+			const serverUser = bilkentServer?.members.cache.find((user) => user.id === reactionUser.id);
+			serverUser?.roles.add(CONFIG.roles[reactionEmoji].roleId);
+		}
 	}
 });
 
