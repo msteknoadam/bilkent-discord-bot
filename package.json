@@ -1,0 +1,8 @@
+{
+  "name": "bilkent-discord-bot",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "repository": "https://github.com/msteknoadam/bilkent-discord-bot.git",
+  "author": "msteknoadam <40995274+msteknoadam@users.noreply.github.com>",
+  "license": "MIT"
+}
