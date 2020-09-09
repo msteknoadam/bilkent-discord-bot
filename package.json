@@ -1,8 +1,26 @@
 {
-  "name": "bilkent-discord-bot",
-  "version": "1.0.0",
-  "main": "bot.js",
-  "repository": "https://github.com/msteknoadam/bilkent-discord-bot.git",
-  "author": "msteknoadam <40995274+msteknoadam@users.noreply.github.com>",
-  "license": "MIT"
+	"name": "bilkent-discord-bot",
+	"version": "1.0.0",
+	"main": "bot.js",
+	"repository": "https://github.com/msteknoadam/bilkent-discord-bot.git",
+	"author": "msteknoadam <40995274+msteknoadam@users.noreply.github.com>",
+	"license": "MIT",
+	"dependencies": {
+		"discord.js": "^12.3.1",
+		"typescript": "^4.0.2"
+	},
+	"private": "true",
+	"workspaces": [
+		"tstypes"
+	],
+	"devDependencies": {
+		"@types/node": "^14.6.4",
+		"cross-env": "^7.0.2",
+		"nodemon": "^2.0.4",
+		"ts-node": "^9.0.0"
+	},
+	"scripts": {
+		"dev": "cross-env NODE_ENV=\"development\" nodemon --exec node_modules/.bin/ts-node -- ./main.ts",
+		"prod": "node_modules/.bin/ts-node -- ./main.ts"
+	}
 }
